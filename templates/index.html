@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ассесмент: ИИ в научных исследованиях</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Ассесмент: применение ИИ в научных исследованиях</h1>
+    <div class="progress">
+      <span class="step active" data-step="intro">Начало</span>
+      <span class="step" data-step="part1">Часть 1</span>
+      <span class="step" data-step="part2">Часть 2</span>
+      <span class="step" data-step="part3">Часть 3</span>
+      <span class="step" data-step="result">Результат</span>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <section id="section-intro" class="section active">
+      <p>Ассесмент состоит из трёх частей:</p>
+      <ul>
+        <li>Часть 1 — 15 утверждений, для каждого «Согласен»/«Не согласен» + краткое обоснование.</li>
+        <li>Часть 2 — 15 закрытых вопросов (в части вопросов несколько верных ответов).</li>
+        <li>Часть 3 — эссе на 500–700 слов.</li>
+      </ul>
+      <p>Рекомендуемое время выполнения — 2,5 часа. Прогресс не сохраняется при перезагрузке страницы,
+         поэтому лучше проходить ассесмент за один раз.</p>
+
+      <label>ФИО *
+        <input type="text" id="full_name" placeholder="Иванов Иван Иванович" required>
+      </label>
+      <label>Email (необязательно)
+        <input type="email" id="email" placeholder="you@example.com">
+      </label>
+
+      <div class="nav">
+        <button id="btn-start" class="primary">Начать</button>
+      </div>
+    </section>
+
+    <section id="section-part1" class="section">
+      <h2>Часть 1. Согласись или опровергни</h2>
+      <p class="hint">Для каждого утверждения выберите вариант и обоснуйте ответ в 1–2 предложениях.</p>
+      <div id="part1-list"></div>
+      <div class="nav">
+        <button id="btn-part1-next" class="primary">Далее →</button>
+      </div>
+    </section>
+
+    <section id="section-part2" class="section">
+      <h2>Часть 2. Закрытые вопросы</h2>
+      <p class="hint">Выберите один или несколько правильных ответов, где указано.</p>
+      <div id="part2-list"></div>
+      <div class="nav">
+        <button id="btn-part2-next" class="primary">Далее →</button>
+      </div>
+    </section>
+
+    <section id="section-part3" class="section">
+      <h2>Часть 3. Эссе</h2>
+      <p class="hint" id="essay-topic"></p>
+      <pre class="structure" id="essay-structure"></pre>
+      <textarea id="essay-text" rows="16" placeholder="Текст эссе..."></textarea>
+      <p class="word-count">Слов: <span id="word-count">0</span> (рекомендовано <span id="word-range"></span>)</p>
+      <div class="nav">
+        <button id="btn-submit" class="primary">Отправить на проверку</button>
+      </div>
+      <p id="submit-status"></p>
+    </section>
+
+    <section id="section-result" class="section">
+      <h2>Результат</h2>
+      <div id="result-box"></div>
+    </section>
+
+  </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

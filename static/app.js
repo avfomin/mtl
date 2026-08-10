@@ -225,21 +225,29 @@ el("btn-submit").addEventListener("click", async () => {
 
 function renderResult(data) {
   const box = el("result-box");
-  let html = "";
+  box.innerHTML = "";
+
   if (data.save_warning) {
-    html += `<div class="error-banner">${data.save_warning}</div>`;
+    const warn = document.createElement("div");
+    warn.className = "error-banner";
+    warn.textContent = data.save_warning;
+    box.appendChild(warn);
   }
-  html += `
+
+  box.insertAdjacentHTML("beforeend", `
     <div class="result-row"><span>Часть 1</span><span>${data.part1.total} / ${data.part1.max}</span></div>
     <div class="result-row"><span>Часть 2</span><span>${data.part2.total} / ${data.part2.max}</span></div>
     <div class="result-row"><span>Часть 3 (эссе)</span><span>${data.part3.total} / ${data.part3.max}</span></div>
     <div class="result-total">Итого: ${data.total} / ${data.max_total}</div>
     <div class="result-grade">${data.grade}</div>
-  `;
+  `);
+
   if (data.part3.comment) {
-    html += `<p class="hint">Комментарий по эссе: ${data.part3.comment}</p>`;
+    const p = document.createElement("p");
+    p.className = "hint";
+    p.textContent = `Комментарий по эссе: ${data.part3.comment}`;
+    box.appendChild(p);
   }
-  box.innerHTML = html;
 }
 
 loadQuestions();

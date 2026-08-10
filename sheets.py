@@ -67,7 +67,15 @@ def _get_worksheet():
 
     existing_header = ws.row_values(1)
     if existing_header != HEADER:
-        ws.update("A1", [HEADER])
+        if not existing_header and ws.row_count <= 1 or len(ws.get_all_values()) <= 1:
+            ws.update("A1", [HEADER])
+        else:
+            logger.warning(
+                "Заголовок листа '%s' не совпадает с текущей схемой HEADER, но в листе уже есть "
+                "данные — заголовок НЕ перезаписан, чтобы не сломать раскладку старых строк. "
+                "existing=%s expected=%s",
+                config.GOOGLE_SHEET_NAME, existing_header, HEADER,
+            )
 
     _worksheet = ws
     return _worksheet

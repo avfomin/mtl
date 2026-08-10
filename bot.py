@@ -204,13 +204,18 @@ async def part2_toggle(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 async def part2_multi_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
-    await query.answer()
     _, idx_str = query.data.split("|")
     idx = int(idx_str)
 
     if idx != context.user_data.get("p2_idx"):
+        await query.answer()
         return PART2
 
+    if not context.user_data.get("p2_selected"):
+        await query.answer("Отметьте хотя бы один вариант перед тем как нажать «Готово».", show_alert=True)
+        return PART2
+
+    await query.answer()
     item = questions.PART2[idx]
     selected = sorted(context.user_data.get("p2_selected", set()))
     context.user_data["p2_answers"].append(selected)

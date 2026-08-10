@@ -81,9 +81,8 @@ function renderPart2() {
       row.innerHTML = `<input type="${inputType}" name="p2-${item.id}"> <span>${opt}</span>`;
       row.addEventListener("click", (e) => {
         if (e.target.tagName !== "INPUT") {
-          row.querySelector("input").checked = !row.querySelector("input").checked && item.multiple
-            ? true
-            : row.querySelector("input").checked;
+          const input = row.querySelector("input");
+          input.checked = item.multiple ? !input.checked : true;
         }
         handleOptionClick(item, row, optIdx);
       });
@@ -100,7 +99,6 @@ function handleOptionClick(item, row, optIdx) {
 
   if (item.multiple) {
     const input = row.querySelector("input");
-    input.checked = !input.checked;
     if (input.checked) {
       set.add(optIdx);
       row.classList.add("selected");

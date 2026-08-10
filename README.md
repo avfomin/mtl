@@ -77,6 +77,48 @@ python bot.py
 5. Бот показывает итоговые баллы и оценку, сохраняет всё в Google Sheets.
 6. `/cancel` — прервать прохождение в любой момент (прогресс не сохраняется).
 
+## Веб-версия (без Telegram)
+
+Тот же ассесмент доступен как обычная веб-страница (`webapp.py`, Flask) — использует те же
+`questions.py`/`scoring.py`/`sheets.py`, пишет результаты в ту же таблицу с пометкой
+`source = web`.
+
+Локально:
+
+```bash
+source .venv/bin/activate
+python webapp.py   # http://localhost:5050
+```
+
+### Постоянный бесплатный деплой на Render.com
+
+1. Создайте (если ещё нет) аккаунт на [github.com](https://github.com) и [render.com](https://render.com)
+   — это нужно сделать самостоятельно, через браузер.
+2. Создайте пустой репозиторий на GitHub, затем из папки проекта:
+   ```bash
+   git remote add origin <URL_вашего_репозитория>
+   git branch -M main
+   git push -u origin main
+   ```
+   (`.env` и `credentials.json` не попадут в репозиторий — они в `.gitignore`.)
+3. В Render: **New → Web Service** → подключите этот GitHub-репозиторий.
+   - Runtime: Python 3
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `gunicorn webapp:app --workers 2 --threads 4 --timeout 120 --bind 0.0.0.0:$PORT`
+     (уже описано в `Procfile`, Render может подхватить его автоматически)
+4. В разделе **Environment** добавьте переменные:
+   - `PERPLEXITY_API_KEY`
+   - `PERPLEXITY_MODEL` = `sonar`
+   - `GOOGLE_SHEET_ID`
+   - `GOOGLE_SHEET_NAME` = `Results`
+   - `GOOGLE_SERVICE_ACCOUNT_JSON_CONTENT` = вставить **всё содержимое** JSON-файла
+     сервис-аккаунта одной строкой (это самый простой способ передать секрет без файла
+     — код уже поддерживает такой вариант).
+5. Deploy. Render выдаст постоянный URL вида `https://<имя-сервиса>.onrender.com`.
+
+Бесплатный план Render "засыпает" после ~15 минут без запросов и просыпается ~30–60 секунд
+на первый запрос — для учебного ассесмента это некритично.
+
 ## Ограничения
 
 - Каждый пользователь Telegram проходит ассесмент по одному разу за сессию бота (повторный

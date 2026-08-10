@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ассесмент: ИИ в научных исследованиях</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<div class="app">
-  <header>
-    <h1>Ассесмент: применение ИИ в научных исследованиях</h1>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo"><span class="logo-mark"></span>ИИ<span class="accent">&nbsp;в&nbsp;науке</span></div>
     <div class="progress">
       <span class="step active" data-step="intro">Начало</span>
       <span class="step" data-step="part1">Часть 1</span>
@@ -17,34 +20,52 @@
       <span class="step" data-step="part3">Часть 3</span>
       <span class="step" data-step="result">Результат</span>
     </div>
-  </header>
+  </div>
+</div>
 
+<div class="app">
   <main id="content">
 
     <section id="section-intro" class="section active">
-      <p>Ассесмент состоит из трёх частей:</p>
-      <ul>
-        <li>Часть 1 — 15 утверждений, для каждого «Согласен»/«Не согласен» + краткое обоснование.</li>
-        <li>Часть 2 — 15 закрытых вопросов (в части вопросов несколько верных ответов).</li>
-        <li>Часть 3 — эссе на 500–700 слов.</li>
-      </ul>
-      <p>Рекомендуемое время выполнения — 2,5 часа. Прогресс не сохраняется при перезагрузке страницы,
-         поэтому лучше проходить ассесмент за один раз.</p>
+      <h1>АССЕСМЕНТ<br><span class="accent">ИИ В НАУЧНЫХ</span><br>ИССЛЕДОВАНИЯХ</h1>
 
-      <label>ФИО *
-        <input type="text" id="full_name" placeholder="Иванов Иван Иванович" required>
-      </label>
-      <label>Email (необязательно)
-        <input type="email" id="email" placeholder="you@example.com">
-      </label>
+      <div class="intro-grid">
+        <div class="intro-text">
+          <p>Проверьте, насколько осознанно вы применяете <span class="accent">искусственный интеллект</span>
+             на разных этапах исследовательского цикла — от постановки гипотез до анализа данных и научного письма.</p>
+        </div>
+        <div class="intro-stats">
+          <div class="stat"><div class="stat-num">3</div><div class="stat-label">части<br>ассесмента</div></div>
+          <div class="stat"><div class="stat-num">65</div><div class="stat-label">максимум<br>баллов</div></div>
+        </div>
+      </div>
+
+      <div class="chip-row">
+        <span class="chip">15 утверждений</span>
+        <span class="chip">15 вопросов</span>
+        <span class="chip">эссе 500–700 слов</span>
+        <span class="chip">≈ 2,5 часа</span>
+      </div>
+
+      <p class="hint">Прогресс не сохраняется при перезагрузке страницы — лучше проходить ассесмент за один раз.</p>
+
+      <div class="card form-card">
+        <label>ФИО *
+          <input type="text" id="full_name" placeholder="Иванов Иван Иванович" required>
+        </label>
+        <label>Email (необязательно)
+          <input type="email" id="email" placeholder="you@example.com">
+        </label>
+      </div>
 
       <div class="nav">
-        <button id="btn-start" class="primary">Начать</button>
+        <button id="btn-start" class="primary">Начать ассесмент</button>
       </div>
     </section>
 
     <section id="section-part1" class="section">
-      <h2>Часть 1. Согласись или опровергни</h2>
+      <div class="section-label">Часть 1</div>
+      <h2>Согласись или опровергни</h2>
       <p class="hint">Для каждого утверждения выберите вариант и обоснуйте ответ в 1–2 предложениях.</p>
       <div id="part1-list"></div>
       <div class="nav">
@@ -53,7 +74,8 @@
     </section>
 
     <section id="section-part2" class="section">
-      <h2>Часть 2. Закрытые вопросы</h2>
+      <div class="section-label">Часть 2</div>
+      <h2>Закрытые вопросы</h2>
       <p class="hint">Выберите один или несколько правильных ответов, где указано.</p>
       <div id="part2-list"></div>
       <div class="nav">
@@ -62,7 +84,8 @@
     </section>
 
     <section id="section-part3" class="section">
-      <h2>Часть 3. Эссе</h2>
+      <div class="section-label">Часть 3</div>
+      <h2>Эссе</h2>
       <p class="hint" id="essay-topic"></p>
       <pre class="structure" id="essay-structure"></pre>
       <textarea id="essay-text" rows="16" placeholder="Текст эссе..."></textarea>
@@ -74,7 +97,8 @@
     </section>
 
     <section id="section-result" class="section">
-      <h2>Результат</h2>
+      <div class="section-label">Результат</div>
+      <h2>Ваша оценка</h2>
       <div id="result-box"></div>
     </section>
 
